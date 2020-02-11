@@ -10,18 +10,20 @@ let counter = 0;
 const size = 330;
 const transitionValue = 'transform 0.4s ease-in-out';
 
-carousel.style.transform = `translateX(${-size * counter}px)`;
+const moveSlide = () => {
+  carousel.style.transition = transitionValue;
+  carousel.style.transform = `translateX(${-size * counter}px)`;
+
+  dots[counter].classList.add('carousel__dot_active');
+};
 
 nextBtn.addEventListener('click', () => {
   if (counter >= cards.length - 1) {
     return;
   }
 
-  carousel.style.transition = transitionValue;
   counter += 1;
-  carousel.style.transform = `translateX(${-size * counter}px)`;
-
-  dots[counter].classList.add('carousel__dot_active');
+  moveSlide();
   dots[counter - 1].classList.remove('carousel__dot_active');
 });
 
@@ -30,10 +32,7 @@ prevBtn.addEventListener('click', () => {
     return;
   }
 
-  carousel.style.transition = transitionValue;
   counter -= 1;
-  carousel.style.transform = `translateX(${-size * counter}px)`;
-
-  dots[counter].classList.add('carousel__dot_active');
+  moveSlide();
   dots[counter + 1].classList.remove('carousel__dot_active');
 });
